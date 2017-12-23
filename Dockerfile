@@ -6,8 +6,11 @@ RUN apt-get update && \
       curl \
       git \
       subversion \
-      mercurial && \
+      mercurial \
+      zlib1g-dev && \
     rm -rf /var/lib/apt/lists/*
+
+RUN docker-php-ext-install zip
 
 # Add Tini
 ENV TINI_VERSION v0.16.1
