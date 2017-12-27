@@ -7,10 +7,15 @@ RUN apt-get update && \
       git \
       subversion \
       mercurial \
-      zlib1g-dev && \
+      zlib1g-dev \
+      libfreetype6-dev \
+      libjpeg62-turbo-dev \
+      libmcrypt-dev \
+      libpng-dev && \
+    docker-php-ext-install zip && \
+    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-install -j$(nproc) gd && \
     rm -rf /var/lib/apt/lists/*
-
-RUN docker-php-ext-install zip
 
 # Add Tini
 ENV TINI_VERSION v0.16.1
